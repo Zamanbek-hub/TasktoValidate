@@ -13,7 +13,7 @@ class UserSerializerModel(serializers.ModelSerializer):
 class UserProfileSerializer(serializers.ModelSerializer):
 
     # nested Serializer
-    user = UserSerializerModel(many=False, read_only=True)
+    # user = UserSerializerModel(many=False, read_only=True)
 
     class Meta:
 

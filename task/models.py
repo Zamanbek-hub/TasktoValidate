@@ -16,3 +16,11 @@ class UserProfile(models.Model):
 
     def __str__(self):
         return str(self.user.username)
+
+    def delete(self):
+        # images = UserProfile.objects.filter(product=self)
+        # for image in images:
+        #     image.delete()
+        print("Model delete")
+        self.avatar.delete()
+        super(UserProfile, self).delete()

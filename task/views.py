@@ -9,6 +9,8 @@ from rest_framework import generics
 from rest_framework import mixins
 from rest_framework.authentication import SessionAuthentication, BasicAuthentication, TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
+from django.dispatch import receiver
+
 
 # Create your views here.
 
@@ -19,6 +21,20 @@ def index(request):
     message = 'Colck in server is '
     print(Response(data=message+date, status=status.HTTP_200_OK))
     return Response(data=message+date, status=status.HTTP_200_OK)
+
+
+# def _delete_file(path):
+#     """ Deletes file from filesystem. """
+#     if os.path.isfile(path):
+#         print("delete")
+#         os.remove(path)
+
+
+# @receiver(models.signals.post_delete, sender=UserProfile)
+# def delete_file(sender, instance, *args, **kwargs):
+#     """ Deletes image files on `post_delete` """
+#     if instance.avatar:
+#         _delete_file(instance.image.path)
 
 
 class GenericAPIView(generics.GenericAPIView, mixins.ListModelMixin, mixins.CreateModelMixin,
@@ -39,6 +55,7 @@ class GenericAPIView(generics.GenericAPIView, mixins.ListModelMixin, mixins.Crea
 
     # ListModelMixin
 
+    # @classmethod
     # def validateImage(content):
     #     content_type = content.content_type.split('/')[0]
     #     print(content_type)

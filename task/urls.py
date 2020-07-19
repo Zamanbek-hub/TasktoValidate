@@ -12,8 +12,13 @@ urlpatterns = [
 
     path('',                views.auth,            name='auth'),
 
+    path('profileList',
+         views.article_detail, name='list'),
     path('<int:id>',
          views.GenericAPIView.as_view(), name='generic'),
+
+    path('profileList',
+         views.article_detail, name='list'),
 
     # if user/<int:id> image doesn't show ('Page not found')
     # False url

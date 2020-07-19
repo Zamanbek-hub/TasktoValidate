@@ -14,20 +14,38 @@
 <body>
     <form class="content_input container" action="{% url 'auth' %}" method="POST">
         {% csrf_token %}
-        <div class="form-group">
 
-            <label for="username">Username:</label>
-
-            <input type="text" class="form-control col-4" id="username" name="username" placeholder="username">
-
-            <label for="password">Password:</label>
-
-            <input type="password" class="form-control col-4" id="password" name="password" placeholder="password">
-
-            <button type="submit" class="btn btn-secondary mb-2 cancel_button">Sign in</button>
-        </div>
-        </div>
     </form>
+    <table class="table">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">First</th>
+                <th scope="col">Last</th>
+                <th scope="col">Handle</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <th scope="row">1</th>
+                <td>Mark</td>
+                <td>Otto</td>
+                <td>@mdo</td>
+            </tr>
+            <tr>
+                <th scope="row">2</th>
+                <td>Jacob</td>
+                <td>Thornton</td>
+                <td>@fat</td>
+            </tr>
+            <tr>
+                <th scope="row">3</th>
+                <td>Larry</td>
+                <td>the Bird</td>
+                <td>@twitter</td>
+            </tr>
+        </tbody>
+    </table>
 
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
         integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous">

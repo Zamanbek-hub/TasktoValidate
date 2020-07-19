@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.urls import reverse_lazy
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from rest_framework import status
@@ -13,16 +14,48 @@ from django.dispatch import receiver
 from django.template.defaultfilters import filesizeformat
 from django.utils.translation import ugettext_lazy as _
 from django.conf import settings
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
+from django.contrib.auth import authenticate, login, logout
 
 # Create your views here.
 
 
 def auth(request):
+    if request.method == 'POST':
+        username = request.POST.get("username")
+        password = request.POST.get("password")
+        # return HttpResponse(username)
+
+        check_if_user_exists = User.objects.filter(
+            username=username).exists()
+
+        print(check_if_user_exists)
+
+        if check_if_user_exists:
+
+            print("gjlkjh;lj;")
+            # a = login(username="+7 (708)-050-52-67", password="just")
+            # print(a)
+            profile = authenticate(
+                username=username, password=password)
+
+            # a = login(username="+7 (708)-050-52-67", password="just")
+            # print(user)
+            if profile is not None:
+                # print("We are here")
+                # profile = UserProfile.objects.get(user=user)
+                login(request, profile)
+
+                print("Logined")
+                return HttpResponseRedirect(reverse_lazy('list',))
+
+            else:
+                return Response("Invalid login or Password", status=status.HTTP_400_BAD_REQUEST)
+
     return render(request, 'task/auth.html')
 
 
-@api_view(['GET'])
+@ api_view(['GET'])
 def index(request):
     date = str(datetime.now())
     message = 'Clock in server is '
@@ -83,6 +116,7 @@ class GenericAPIView(generics.GenericAPIView, mixins.ListModelMixin, mixins.Crea
         if id:
             return self.retrieve(request)
         else:
+            print(type(id))
             return self.list(request)
 
     # CreateModelMixin
@@ -134,3 +168,18 @@ class GenericAPIView(generics.GenericAPIView, mixins.ListModelMixin, mixins.Crea
 
     def delete(self, request, id):
         return self.destroy(request, id)
+
+
+@ api_view(('GET',))
+def article_detail(request):
+    try:
+        userProfiles = UserProfile.objects.all()
+
+    except Article.DoesNotExist:
+        return HttpResponse(status=status.HTTP_404_NOT_FOUND)
+
+    if request.method == 'GET':
+        serializer = UserProfileSerializer(userProfiles, many=True)
+        # serializer = ArticleSerializerModel(
+        #     articles, many=True)
+        return Response(serializer.data)

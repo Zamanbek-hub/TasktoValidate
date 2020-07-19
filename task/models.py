@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+import os
 
 # Create your models here.
 
@@ -21,6 +22,8 @@ class UserProfile(models.Model):
         # images = UserProfile.objects.filter(product=self)
         # for image in images:
         #     image.delete()
-        print("Model delete")
-        self.avatar.delete()
+        # os.remove(UserProfile.avatar.pah)
+
+        # print("Model delete", UserProfile.avatar.name)
+        self.avatar.delete(save=False)
         super(UserProfile, self).delete()

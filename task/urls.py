@@ -10,6 +10,7 @@ urlpatterns = [
     # path('auth/', include('djoser.urls.authtoken')),
     # path('get/',                views.UserProfileViewset,            name='get'),
 
+    path('',                views.auth,            name='auth'),
 
     path('<int:id>',
          views.GenericAPIView.as_view(), name='generic'),

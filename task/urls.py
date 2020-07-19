@@ -10,7 +10,12 @@ urlpatterns = [
     # path('auth/', include('djoser.urls.authtoken')),
     # path('get/',                views.UserProfileViewset,            name='get'),
 
-    path('user/<int:id>',
+
+    path('<int:id>',
          views.GenericAPIView.as_view(), name='generic'),
+
+    # if user/<int:id> image doesn't show ('Page not found')
+    # False url
+
 
 ]

@@ -8,21 +8,26 @@ from .models import UserProfile
 def _delete_file(path):
     """ Deletes file from filesystem. """
     # if os.path.isfile(path):
-    # indexes = indexes.translate({ord(']'): None})
-    path = "C:/Users/ЗФманбек/Desktop/projectTasktoWork/TasktoValidate/main/task/media/avatars/DSC_0740.JPG"
     print("delete ", path)
     # os.remove(path)
 
 
 @receiver(pre_save, sender=UserProfile)
 def update_file(sender, instance, **kwargs):
-    """ Deletes image files on `pre_save` """
-    print("TO Update")
+    """Deletes image files on `pre_save` """
+    print("update")
+
+    """
+    Delete old photo when uploaded new photo
+    I tried delete by OS in _delete_file() but this didn't work, may be from unicode(Russian) or from pre_save as so PATH shows  of new uploaded IMG
+
+    """
     # if created == False:
     if not instance._state.adding:
-        print("Its update", instance)
-        instance.avatar.delete()
+        pass
+        # instance.avatar.delete()
         # _delete_file(instance.avatar.delete)
+        print("Its update")
     else:
         print("Its insert")
 
@@ -30,10 +35,7 @@ def update_file(sender, instance, **kwargs):
 @receiver(pre_delete, sender=UserProfile)
 def delete_file(sender, instance, **kwargs):
     """ Deletes image files on `pre_save` """
-    print("TO delete")
+    print("delete")
     # if created == False:
-    # if not instance._state.adding:
-    print("Its delete", instance.avatar.name)
+
     _delete_file(instance.avatar.name)
-    # else:
-    #     print("Its insert")

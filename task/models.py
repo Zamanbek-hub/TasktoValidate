@@ -1,6 +1,5 @@
 from django.db import models
 from django.contrib.auth.models import User
-import os
 
 # Create your models here.
 
@@ -19,11 +18,9 @@ class UserProfile(models.Model):
         return str(self.user.username)
 
     def delete(self):
-        # images = UserProfile.objects.filter(product=self)
-        # for image in images:
-        #     image.delete()
-        # os.remove(UserProfile.avatar.pah)
-
         # print("Model delete", UserProfile.avatar.name)
+
+        # Overwrite delete method to delete img after delete Profile
+        # but it turns out he himself deletes the photo from the folder without Overwrite
         self.avatar.delete(save=False)
         super(UserProfile, self).delete()
